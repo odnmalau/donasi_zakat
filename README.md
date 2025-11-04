@@ -1,9 +1,9 @@
 # 💚 Platform Donasi Zakat Online - Dokumentasi Lengkap
 
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-green)
-![Tests](https://img.shields.io/badge/Tests-62%2F62%20PASSING-brightgreen)
+![Tests](https://img.shields.io/badge/Tests-117%2F117%20PASSING-brightgreen)
 ![PHP](https://img.shields.io/badge/PHP-8.4.14-blue)
-![Laravel](https://img.shields.io/badge/Laravel-12.36.1-red)
+![Laravel](https://img.shields.io/badge/Laravel-12-red)
 
 Aplikasi web modern untuk penyaluran zakat yang **transparan, aman, dan mudah digunakan**. Platform ini memudahkan donatur untuk menyalurkan zakat mereka kepada penerima manfaat dengan sistem verifikasi yang ketat.
 
@@ -40,21 +40,29 @@ Aplikasi web modern untuk penyaluran zakat yang **transparan, aman, dan mudah di
 - ✅ **Real-time Dashboard** - Statistics yang selalu update
 - ✅ **Responsive Design** - Mobile-friendly UI
 
+### 🆕 NEW FEATURES (v1.1.0)
+- ✅ **Campaign Categories** - Organize campaigns dengan kategori yang dapat diatur admin
+- ✅ **Advanced Search & Filter** - Search by title/description, filter by category, sort campaigns
+- ✅ **Report Export** - Export campaigns & donations ke Excel dan PDF format
+- ✅ **Role-Based Dashboard** - Setiap role melihat dashboard yang disesuaikan dengan kebutuhan mereka
+
 ---
 
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| **Framework** | Laravel 12.36.1 |
+| **Framework** | Laravel 12 |
 | **Language** | PHP 8.4.14 |
 | **Database** | MariaDB / MySQL |
 | **ORM** | Eloquent |
 | **Admin Panel** | Filament 4.2.0 |
-| **Frontend** | Tailwind CSS 4.1.16, Livewire 3.6.4 |
+| **Frontend** | Tailwind CSS 4, Livewire 3.6.4 |
 | **Testing** | Pest 4.1.3 |
 | **Code Quality** | Laravel Pint 1.25.1 |
 | **Auth** | Spatie Permission 6.23.0 |
+| **Excel Export** | Maatwebsite Excel 3.1.67 |
+| **PDF Export** | Barryvdh DomPDF 3.1.1 |
 
 ---
 
@@ -262,13 +270,16 @@ GET    /admin/users                  User list
 
 ## 🧪 Testing
 
-### Test Coverage: 62/62 ✅
+### Test Coverage: 117/117 ✅ (55 NEW TESTS ADDED)
 
 **Test Categories:**
-- Campaign Controller Tests (14 tests)
-- Livewire Component Tests (28 tests)
-- Filament Resource Tests (6 tests)
-- Authorization Tests (14 tests)
+- Authorization & Role-Based Access (16 tests)
+- Donation Resource & Filament (6 tests)
+- Public Donation Form Livewire (40 tests)
+- **Campaign Category Feature (23 NEW tests)** ✨
+- **Public Campaign Search & Filter (21 NEW tests)** ✨
+- **Report Export Feature (16 NEW tests)** ✨
+- **Dashboard Role-Based (12 NEW tests)** ✨
 
 ### Run Tests
 ```bash
@@ -276,7 +287,7 @@ GET    /admin/users                  User list
 php artisan test
 
 # Specific test file
-php artisan test tests/Feature/DonationFlowTest.php
+php artisan test tests/Feature/CampaignCategoryTest.php
 
 # With coverage (requires Xdebug)
 XDEBUG_MODE=coverage php artisan test --coverage-html=/tmp/coverage
@@ -284,8 +295,8 @@ XDEBUG_MODE=coverage php artisan test --coverage-html=/tmp/coverage
 
 **Latest Result:**
 ```
-Tests:    62 passed (135 assertions)
-Duration: 15.46s
+Tests:    117 passed (233 assertions)
+Duration: 36.22s
 Status:   ✅ ALL PASS
 ```
 
@@ -346,14 +357,16 @@ php artisan route:cache
 
 ## 📊 Project Statistics
 
-- **Total Tests**: 62 (100% passing)
-- **Test Assertions**: 135
-- **Database Tables**: 10+
-- **Models**: 5
+- **Total Tests**: 117 (100% passing) ⬆️ +55 NEW
+- **Test Assertions**: 233
+- **Database Tables**: 11 (+ categories table)
+- **Models**: 6 (+ Category model)
 - **Controllers**: 2
-- **Filament Resources**: 5
+- **Filament Resources**: 6 (+ CategoryResource)
+- **Filament Pages**: 7 (with export actions)
+- **Export Classes**: 2 (Campaign & Donation)
 - **API Routes**: 20+
-- **Lines of Code**: 2000+
+- **Lines of Code**: 2500+
 
 ---
 
@@ -382,6 +395,15 @@ Proprietary - All Rights Reserved © 2025
 
 ## 🎯 Version
 
+**v1.1.0** - Feature Enhancement Release (2025-11-05) ✨
+- ✅ Campaign Categories system
+- ✅ Advanced Search & Filter functionality
+- ✅ Excel & PDF Report Export
+- ✅ Role-Based Dashboard customization
+- ✅ 117 comprehensive tests (+55 NEW)
+- ✅ 233 test assertions
+- ✅ 2 new export packages integrated
+
 **v1.0.0** - Initial Release (2025-11-04)
 - ✅ Core donation system
 - ✅ Campaign management
@@ -392,4 +414,4 @@ Proprietary - All Rights Reserved © 2025
 
 ---
 
-**Status**: ✅ Production Ready | **Last Updated**: 2025-11-04 | **Maintained By**: Development Team
+**Status**: ✅ Production Ready | **Last Updated**: 2025-11-05 | **Maintained By**: Development Team
