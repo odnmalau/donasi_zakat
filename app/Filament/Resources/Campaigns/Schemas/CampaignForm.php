@@ -24,12 +24,16 @@ class CampaignForm
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(string $state, \Filament\Forms\Set $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
+                            ->afterStateUpdated(fn (string $state, \Filament\Forms\Set $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
                         TextInput::make('slug')
                             ->label('Slug')
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
+                        Select::make('category_id')
+                            ->label('Kategori')
+                            ->relationship('category', 'name')
+                            ->required(),
                         RichEditor::make('description')
                             ->label('Deskripsi')
                             ->required()

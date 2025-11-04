@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             RoleSeeder::class,
             AdminUserSeeder::class,
+            CategorySeeder::class,
             CampaignSeeder::class,
             DonationSeeder::class,
         ]);

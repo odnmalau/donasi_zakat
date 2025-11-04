@@ -34,6 +34,71 @@
         </div>
     </section>
 
+    <!-- Search & Filters -->
+    <section class="bg-gray-50 border-b border-gray-200 py-8">
+        <div class="max-w-6xl mx-auto px-4 md:px-6">
+            <form method="GET" action="/campaigns" class="space-y-4">
+                <!-- Search -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Cari Kampanye</label>
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Cari berdasarkan nama atau deskripsi..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    >
+                </div>
+
+                <!-- Filters Row -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <!-- Category Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
+                        <select name="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="">Semua Kategori</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->icon }} {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Sort -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Urutkan</label>
+                        <select name="sort" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="newest" {{ request('sort', 'newest') == 'newest' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="ending_soon" {{ request('sort') == 'ending_soon' ? 'selected' : '' }}>Berakhir Segera</option>
+                            <option value="most_funded" {{ request('sort') == 'most_funded' ? 'selected' : '' }}>Paling Terkumpul</option>
+                            <option value="alphabetical" {{ request('sort') == 'alphabetical' ? 'selected' : '' }}>A - Z</option>
+                        </select>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-end gap-2">
+                        <button type="submit" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium text-sm">
+                            Terapkan Filter
+                        </button>
+                        @if(request('search') || request('category') || request('sort') != 'newest')
+                            <a href="/campaigns" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-sm">
+                                Reset
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </form>
+
+            <!-- Results Info -->
+            <div class="mt-4 text-sm text-gray-600">
+                @if(request('search') || request('category'))
+                    <p>Menampilkan <strong>{{ $campaigns->count() }}</strong> dari <strong>{{ $campaigns->total() }}</strong> kampanye</p>
+                @endif
+            </div>
+        </div>
+    </section>
+
     <!-- Campaigns Grid -->
     <section class="bg-white py-16 md:py-24">
         <div class="max-w-6xl mx-auto px-4 md:px-6">

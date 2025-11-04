@@ -24,13 +24,17 @@ class CampaignsTable
                     ->searchable()
                     ->sortable()
                     ->limit(30),
+                TextColumn::make('category.name')
+                    ->label('Kategori')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('target_amount')
                     ->label('Target Dana')
-                    ->formatStateUsing(fn(mixed $state): string => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->formatStateUsing(fn (mixed $state): string => 'Rp '.number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('collected_amount')
                     ->label('Dana Terkumpul')
-                    ->formatStateUsing(fn(mixed $state): string => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->formatStateUsing(fn (mixed $state): string => 'Rp '.number_format($state, 0, ',', '.'))
                     ->sortable(),
                 BadgeColumn::make('status')
                     ->label('Status')
@@ -51,6 +55,9 @@ class CampaignsTable
                     ->sortable(),
             ])
             ->filters([
+                SelectFilter::make('category_id')
+                    ->label('Kategori')
+                    ->relationship('category', 'name'),
                 SelectFilter::make('status')
                     ->label('Filter Status')
                     ->options([

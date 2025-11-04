@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -18,23 +19,39 @@ class CampaignFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->randomElement([
-            'Bantuan Pendidikan Anak Yatim',
-            'Program Kesehatan Masyarakat',
-            'Renovasi Mushola Desa',
-            'Beasiswa Hafiz Quran',
-            'Bantuan Modal Usaha UMKM',
-            'Program Makanan Bergizi Anak',
-            'Sumur Bor untuk Desa Terpencil',
-            'Pemeriksaan Kesehatan Gratis',
+        $prefix = $this->faker->randomElement([
+            'Bantuan',
+            'Program',
+            'Renovasi',
+            'Beasiswa',
+            'Inisiatif',
+            'Proyek',
+            'Kegiatan',
+            'Kampanye',
         ]);
+
+        $subject = $this->faker->randomElement([
+            'Pendidikan Anak Yatim',
+            'Kesehatan Masyarakat',
+            'Mushola Desa',
+            'Hafiz Quran',
+            'Modal Usaha UMKM',
+            'Makanan Bergizi Anak',
+            'Sumur Bor Desa Terpencil',
+            'Pemeriksaan Kesehatan Gratis',
+            'Pendidikan Anak Terlantar',
+            'Sanitasi Desa',
+        ]);
+
+        $title = $prefix.' '.$subject.' #'.$this->faker->unique()->randomNumber(4);
 
         $startDate = $this->faker->dateTimeBetween('now', '+30 days');
         $endDate = $this->faker->dateTimeBetween($startDate, '+90 days');
 
         return [
+            'category_id' => Category::factory(),
             'title' => $title,
-            'slug' => Str::slug($title) . '-' . $this->faker->unique()->randomNumber(5),
+            'slug' => Str::slug($title),
             'description' => $this->faker->paragraphs(3, true),
             'image' => null,
             'target_amount' => $this->faker->randomElement([1000000, 2500000, 5000000, 10000000, 25000000]),
@@ -48,14 +65,14 @@ class CampaignFactory extends Factory
 
     public function active(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'status' => 'active',
         ]);
     }
 
     public function completed(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'status' => 'completed',
             'collected_amount' => $attributes['target_amount'],
         ]);
@@ -63,7 +80,7 @@ class CampaignFactory extends Factory
 
     public function draft(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'status' => 'draft',
         ]);
     }

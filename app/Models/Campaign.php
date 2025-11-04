@@ -14,6 +14,7 @@ class Campaign extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'category_id',
         'title',
         'slug',
         'description',
@@ -34,6 +35,11 @@ class Campaign extends Model
             'start_date' => 'date',
             'end_date' => 'date',
         ];
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function creator(): BelongsTo
